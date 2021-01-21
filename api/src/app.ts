@@ -4,7 +4,7 @@ import { Store } from './service/store';
 
 const app = express();
 const port = 3000;
-const store = new Store();
+const store = Store.getInstance();
 
 // Use express json middleware so it transform the request into json.
 app.use(express.json());
@@ -61,3 +61,5 @@ app.delete('/article/:id', (req, res) => {
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`);
 });
+
+export default app;

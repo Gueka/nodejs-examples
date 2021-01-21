@@ -1,5 +1,5 @@
 
-class Article {
+export class Article {
     id: string;
     title: string;
     description: string;
@@ -39,13 +39,26 @@ const { v4: uuidv4 } = require("uuid");
 
 export class Store {
 
-    map = new Map();
+    private static instance: Store;
+    private map = new Map();
 
-    getArticle(id: string): Article{
+    private constructor() {
+    }
+  
+    public static getInstance(): Store {
+      if (!Store.instance) {
+        Store.instance = new Store();
+      }
+  
+      return Store.instance;
+    }
+
+
+    public getArticle(id: string): Article{
         return this.map.get(id);
     }
     
-    setArticle(title: string, description:string, link:string): Article {
+    public setArticle(title: string, description:string, link:string): Article {
         let id = this.generateID();
         let article = new Article(id, title, description, link);
         this.map.set(id, article);
