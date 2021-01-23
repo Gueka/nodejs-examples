@@ -32,7 +32,11 @@ app.post('/article', (req, res) => {
   let link = req.body.link;
   let newArticle = store.setArticle(title, description, link);
 
-  res.send({code:200, message:`New article has been created.`, article: newArticle});
+  if(newArticle != null){
+    res.send({code:200, message:`New article has been created.`, article: newArticle});
+  }else{
+    res.status(400).send({code:400, message:'Missing a mandatory parameter: title, description or link'})
+  }
 });
 
 app.put('/article/:id', (req, res) => {
@@ -45,7 +49,7 @@ app.put('/article/:id', (req, res) => {
   if(article != undefined){
     res.send({code:200, message:`Article id ${id} has been updated.`, article: article});
   }else{
-    res.status(500).send({code:500, message:`Something bad happend trying to update article with id ${id}`});
+    res.status(404).send({code:404, message:`Article with id ${id} was not found`});
   }
 });
 
@@ -54,7 +58,7 @@ app.delete('/article/:id', (req, res) => {
   if(store.deleteArticle(id)){
     res.send({code:200, message:`Article id ${id} has been deleted.`});
   }else{
-    res.status(500).send({code:500, message:`Something bad happend trying to delete id ${id}`});
+    res.status(404).send({code:404, message:`Article with id ${id} was not found`});
   }
 });
 

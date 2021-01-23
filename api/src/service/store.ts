@@ -59,6 +59,10 @@ export class Store {
     }
     
     public setArticle(title: string, description:string, link:string): Article {
+        if(title == null || description == null || link == null){
+            return null;
+        }
+
         let id = this.generateID();
         let article = new Article(id, title, description, link);
         this.map.set(id, article);
@@ -82,8 +86,11 @@ export class Store {
     }
 
     deleteArticle(id: string): boolean {
-        this.map.delete(id);
-        return true;
+        if(this.map.has(id)){
+            this.map.delete(id);
+            return true;
+        }
+        return false;
     }
     
     private generateID():string {
