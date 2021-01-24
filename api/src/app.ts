@@ -1,6 +1,6 @@
 
 import express from 'express';
-import { Store } from './service/store';
+import { Article, Store } from './service/store';
 
 /*
   This app typescript file was create as an example of an CRUD (Create, Read, Update and Delete) API build with nodejs using expressjs.
@@ -41,7 +41,23 @@ app.get('/article/:id', (req, res) => {
     res.status(404).send({status: 404, message:`Article with id ${id} was not found.`});
   }else{
     // Return a 200 with the article.
+    console.debug("article found");
     res.send({status:200, message:`Article with id ${id} was found.`, article:article});
+  }
+});
+
+// NOTE: It's never good to retrieve all resources, use pagination, but its out of the scope for now.
+app.get('/articles', (req, res) => {
+  console.warn(`Get all articles. Careful don't play with fire.`);
+
+  let list: Array<Article> = store.getall();
+  console.log(list);
+  // Validate if the list of article exists
+  if(list.length > 0){
+    // Return a 200 with the list of articles.
+    res.send({status:200, message:`All articles found.`, list:list});
+  }else{
+    res.status(404).send({status: 404, message:`Articles not found.`});
   }
 });
 

@@ -51,6 +51,11 @@ const { v4: uuidv4 } = require("uuid");
     Instead of a map propery the proper thing to do would be to change the map to a database connection.
 */
 export class Store {
+    
+    getall(): Article[] {
+        let list = Array.from( this.map.values() );
+        return list;
+    }
 
     private static instance: Store;
     // This is a very, very simple in memory store. https://en.wikipedia.org/wiki/Storage_(memory)

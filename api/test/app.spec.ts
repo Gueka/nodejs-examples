@@ -13,6 +13,7 @@ describe('API article test', () => {
 
   // We set a default article in our store (memory db), to be able to test GET, PUT and DELETE methods
   before(function() {
+    console.log("Test initialization");
     const title = "Get article";
     const desc = "This test is to ensure an article is stored and retrieved.";
     article = Store.getInstance().setArticle(title, desc, "http://localhost:80/test");
@@ -50,8 +51,8 @@ describe('API article test', () => {
   it('should GET a created article by id to /article/:id', async function () {
     return chai.request(app).get('/article/' + article.getId())
       .then(res => {
-        chai.expect(res.body.title).to.eql(article.getTitle());
-        chai.expect(res.body.description).to.eql(article.getDescription());
+        chai.expect(res.body.article.title).to.eql(article.getTitle());
+        chai.expect(res.body.article.description).to.eql(article.getDescription());
       });
   });
   it('should FAIL to GET a created article by random id', async function () {
@@ -59,6 +60,13 @@ describe('API article test', () => {
     return chai.request(app).get('/article/' + randomString)
       .then(res => {
         chai.expect(res.status).to.eql(404);
+      });
+  });
+  it('should GET all created articles /articles', async function () {
+    return chai.request(app).get('/articles')
+      .then(res => {
+        chai.expect(res.status).to.eql(200);
+        chai.expect(res.body.list.length).to.eql(2);
       });
   });
 
