@@ -1,26 +1,20 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "52259ca1-4634-4398-8cca-dfd4e4f1d737",
 		"name": "Api nodejs article",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "6bec4323-57b4-df4f-524d-4e64bb7a8830",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Ping",
 			"request": {
+				"url": "http://localhost:3000/ping",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/ping",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"ping"
-					]
-				}
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
@@ -30,106 +24,82 @@
 				{
 					"listen": "test",
 					"script": {
+						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);\r",
-							"postman.setGlobalVariable(\"article-id\", jsonData.id);"
-						],
-						"type": "text/javascript"
+							"postman.setGlobalVariable(\"article-id\", jsonData.article.id);"
+						]
 					}
 				}
 			],
 			"request": {
+				"url": "http://localhost:3000/article",
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\":\"Title test\",\r\n    \"description\": \"Some example description\",\r\n    \"link\": \"http://localhost:80/test\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\r\n    \"title\":\"Title test\",\r\n    \"description\": \"Some example description\",\r\n    \"link\": \"http://localhost:80/test\"\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:3000/article",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"article"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "Get article by id",
 			"request": {
+				"url": "http://localhost:3000/article/{{article-id}}",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/article/{{article-id}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"article",
-						"{{article-id}}"
-					]
-				}
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "Delete article by id",
 			"request": {
+				"url": "http://localhost:3000/article/{{article-id}}",
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/article/{{article-id}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"article",
-						"{{article-id}}"
-					]
-				}
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "Update article by id",
 			"request": {
+				"url": "http://localhost:3000/article/{{article-id}}",
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\":\"Updated title\",\r\n    \"link\": \"http://localhost:80/updated\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\r\n    \"title\":\"Updated title\",\r\n    \"link\": \"http://localhost:80/updated\"\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:3000/article/{{article-id}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"article",
-						"{{article-id}}"
-					]
-				}
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "All",
+			"request": {
+				"url": "http://localhost:3000/articles",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		}
