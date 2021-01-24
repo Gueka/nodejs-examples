@@ -51,7 +51,7 @@ const { v4: uuidv4 } = require("uuid");
     Instead of a map propery the proper thing to do would be to change the map to a database connection.
 */
 export class Store {
-    
+
     getall(): Article[] {
         let list = Array.from( this.map.values() );
         return list;
@@ -72,7 +72,10 @@ export class Store {
 
     // Exposing a read method to retrieve an article
     public getArticle(id: string): Article{
-        return this.map.get(id);
+        if(this.map.has(id)){
+            return this.map.get(id);
+        }
+        return null;
     }
     
     // Exposing a store article method, some basic validation for mandatory parameters.

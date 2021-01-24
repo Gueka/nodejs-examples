@@ -30,7 +30,7 @@ app.get('/ping', (req, res) => {
 // Web browser use GET method to open web pages. Ex: http://localhost:3000/article/379acb20-fe70-4ecc-a814-633c587df0b7
 app.get('/article/:id', (req, res) => {
   let id = req.params.id;
-  console.log(`Getting article with id ${id}`);
+  console.debug(`Getting article with id ${id}`);
   // Use the store service to retrieve the article requested.
   let article = store.getArticle(id);
   // Validate if the article exist
